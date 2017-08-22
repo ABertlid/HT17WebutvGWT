@@ -28,6 +28,7 @@ public class ExempelProjekt implements EntryPoint {
 	private TextBox operatorBox = new TextBox();
 	private Button calcButton = new Button("Calculate");
 	private Button removeButton = new Button("Clear");
+	private CalcButton calculatorButton = new CalcButton();
 
 	/**
 	 * Entry point method.
@@ -38,8 +39,8 @@ public class ExempelProjekt implements EntryPoint {
 		// Associate the Main panel with the HTML host page.
 
 		RootPanel.get("calc").add(mainPanel);
-		
-		//test of new class Handler // // Listen for mouse events on the buttons.
+
+		// test of new class Handler // // Listen for mouse events on the buttons.
 		Handler handler = new Handler(this);
 		calcButton.addClickHandler(handler);
 		removeButton.addClickHandler(handler);
@@ -47,78 +48,25 @@ public class ExempelProjekt implements EntryPoint {
 		operatorBox.addKeyDownHandler(handler);
 		secondNumberBox.addKeyDownHandler(handler);
 
-		// Listen for mouse events on the buttons.
-		/*calcButton.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				calculationType();
-			}
-		});*/
-		// Listen for mouse events on the buttons.
-		/*removeButton.addClickHandler(new ClickHandler() {
-
-			@Override
-			public void onClick(ClickEvent event) {
-				clearTextFields();
-			}
-		});*/
-
-		// Listen for keyboard events(Enter)in the input first number box.
-		/*firstNumberBox.addKeyDownHandler(new KeyDownHandler() {
-
-			@Override
-			public void onKeyDown(KeyDownEvent event) {
-				if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-					operatorBox.setFocus(true);
-				}
-			}
-		});
-		// Listen for keyboard events(Enter)in the input operator box.
-		operatorBox.addKeyDownHandler(new KeyDownHandler() {
-
-			@Override
-			public void onKeyDown(KeyDownEvent event) {
-				if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-					calculationType();
-				}
-			}
-		});
-		// Listen for keyboard events(Enter)in the input second number box.
-		secondNumberBox.addKeyDownHandler(new KeyDownHandler() {
-
-			@Override
-			public void onKeyDown(KeyDownEvent event) {
-				if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER) {
-					calculationType();
-				}
-			}
-		});*/
-
 		// Move cursor focus to the input box.
 		firstNumberBox.setFocus(true);
-
 	}
 
 	private void setUpFlexTable() {
 
-		// create the setup for calcbuttons. Add buttons to four different horizontal panels
-		for(int i = 0; i < 4; i++) {
-		buttonPanel1Row.add(CalcButton.createButton().get(i));
-		
-		CalcButton.createButton().get(i).addStyleName("buttons1");
+		// create the setup for calcbuttons. Add buttons to four different horizontal
+		// panels
+		for (int i = 0; i < 4; i++) {
+			buttonPanel1Row.add(calculatorButton.createButton().get(i));
 		}
-		for(int i = 4; i < 8; i++) {
-		buttonPanel2Row.add(CalcButton.createButton().get(i));
-		CalcButton.createButton().get(i).addStyleName("buttons2");
+		for (int i = 4; i < 8; i++) {
+			buttonPanel2Row.add(calculatorButton.createButton().get(i));
 		}
-		for(int i = 8; i < 12; i++) {
-		buttonPanel3Row.add(CalcButton.createButton().get(i));
-		CalcButton.createButton().get(i).addStyleName("buttons3");
+		for (int i = 8; i < 12; i++) {
+			buttonPanel3Row.add(calculatorButton.createButton().get(i));
 		}
-		for(int i = 12; i < 16; i++) {
-		buttonPanel4Row.add(CalcButton.createButton().get(i));
-		CalcButton.createButton().get(i).addStyleName("buttons4");
+		for (int i = 12; i < 16; i++) {
+			buttonPanel4Row.add(calculatorButton.createButton().get(i));
 		}
 		// add elements to the horizontal panel
 		addPanel.add(firstNumberBox);
@@ -132,8 +80,8 @@ public class ExempelProjekt implements EntryPoint {
 		buttonPanel.add(buttonPanel2Row);
 		buttonPanel.add(buttonPanel3Row);
 		buttonPanel.add(buttonPanel4Row);
-		
-		//mainPanel.add(buttonPanel);
+
+		// mainPanel.add(buttonPanel);
 		mainPanel.add(addPanel);
 		mainPanel.add(buttonPanel);
 		mainPanel.add(resultFlexTable);
@@ -154,7 +102,7 @@ public class ExempelProjekt implements EntryPoint {
 		addPanel.addStyleName("addPanel");
 		mainPanel.addStyleName("mainPanel");
 		buttonPanel.addStyleName("buttonPanel");
-		
+		firstNumberBox.setName("firstNumberBox");
 	}
 
 	public void calculationType() {
@@ -164,9 +112,9 @@ public class ExempelProjekt implements EntryPoint {
 			Window.alert("Not valid");
 			return;
 		}
-		int sum;
-		int firstNumber = Integer.parseInt(firstNumberBox.getText());
-		int secondNumber = Integer.parseInt(secondNumberBox.getText());
+		double sum;
+		double firstNumber = Double.parseDouble(firstNumberBox.getText());
+		double secondNumber = Double.parseDouble(secondNumberBox.getText());
 		switch (operator) {
 		case "+":
 			sum = Calculation.calculateAddition(firstNumber, secondNumber);
@@ -190,7 +138,7 @@ public class ExempelProjekt implements EntryPoint {
 
 	}
 
-	private void updateTable(int sum) {
+	public void updateTable(double sum) {
 		final String number1 = firstNumberBox.getText();
 		final String operator = operatorBox.getText();
 		final String number2 = secondNumberBox.getText();
@@ -219,4 +167,25 @@ public class ExempelProjekt implements EntryPoint {
 		secondNumberBox.setText("");
 		firstNumberBox.setFocus(true);
 	}
+
+	public TextBox getOperatorBox() {
+		return operatorBox;
+	}
+
+	public TextBox getFirstNumberBox() {
+		return firstNumberBox;
+	}
+
+	public TextBox getSecondNumberBox() {
+		return secondNumberBox;
+	}
+
+	public void setFirstNumberBox(TextBox firstNumberBox) {
+		this.firstNumberBox = firstNumberBox;
+	}
+
+	public void setSecondNumberBox(TextBox secondNumberBox) {
+		this.secondNumberBox = secondNumberBox;
+	}
+
 }

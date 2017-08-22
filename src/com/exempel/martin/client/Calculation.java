@@ -2,19 +2,19 @@ package com.exempel.martin.client;
 
 public class Calculation {
 	
-	public static int calculateAddition(int firstNumber, int secondNumber) {
+	public static double calculateAddition(double firstNumber, double secondNumber) {
 		
 		return (firstNumber + secondNumber);
 	}
-	public static int calculateSubtraction(int firstNumber, int secondNumber) {
+	public static double calculateSubtraction(double firstNumber, double secondNumber) {
 		
 		return (firstNumber - secondNumber);
 	}
-	public static int calculateDivision(int firstNumber, int secondNumber) {
+	public static double calculateDivision(double firstNumber, double secondNumber) {
 		
 		return (firstNumber / secondNumber);
 	}
-	public static int calculateMultiplication(int firstNumber, int secondNumber) {
+	public static double calculateMultiplication(double firstNumber, double secondNumber) {
 		
 		return (firstNumber * secondNumber);
 	}
