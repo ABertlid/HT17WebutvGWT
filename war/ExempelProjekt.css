@@ -1,0 +1,64 @@
+
+html, body{
+	padding 10px;
+	background-color: #ffd5f8;	
+}
+.resultListHeader{
+	background-color: #5c64b8;
+	color: white;
+	font-style: normal;
+}
+.resultList{
+	border-radius: 1em;
+	padding: 2px;
+	margin-bottom: 6px;
+	text-align: center;
+	background-color: silver;
+}
+.resultListColumn{
+	text-align: center;
+	border-radius: 3em;
+	width: 9em;
+}
+.addPanel{
+	margin: 20px 0px 20px 0px;
+}
+.mainPanel{
+	margin: auto;
+}
+.buttonPanel{
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 20px;	
+	width: 500px;
+	height: 100px;
+	padding: 20px;
+}
+h1, h3{
+	text-align: center;
+	font-style: normal;
+	color: #8b9cb8;
+}
+.buttons1 { 
+	size: 500px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
