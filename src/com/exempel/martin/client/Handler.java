@@ -1,6 +1,5 @@
 package com.exempel.martin.client;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.KeyCodes;
@@ -34,9 +33,9 @@ public class Handler implements KeyDownHandler, ClickHandler {
 			} else if (button.getText().equals("Clear")) {
 				exempelProjekt.clearTextFields();
 			} else {
-				GWT.log(button.getText());
-			}
+				exempelProjekt.calcTypeFromBoard(button.getText());
 
+			}
 		}
 
 	}

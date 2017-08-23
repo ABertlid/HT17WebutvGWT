@@ -6,6 +6,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -22,6 +23,7 @@ public class ExempelProjekt implements EntryPoint {
 	private HorizontalPanel buttonPanel2Row = new HorizontalPanel();
 	private HorizontalPanel buttonPanel3Row = new HorizontalPanel();
 	private HorizontalPanel buttonPanel4Row = new HorizontalPanel();
+	private HorizontalPanel labelPanel = new HorizontalPanel();
 	private FlexTable resultFlexTable = new FlexTable();
 	private TextBox firstNumberBox = new TextBox();
 	private TextBox secondNumberBox = new TextBox();
@@ -29,6 +31,8 @@ public class ExempelProjekt implements EntryPoint {
 	private Button calcButton = new Button("Calculate");
 	private Button removeButton = new Button("Clear");
 	private CalcButton calculatorButton = new CalcButton();
+	private Label calcLabel = new Label();
+	private Handler handler = new Handler(this);
 
 	/**
 	 * Entry point method.
@@ -40,8 +44,7 @@ public class ExempelProjekt implements EntryPoint {
 
 		RootPanel.get("calc").add(mainPanel);
 
-		// test of new class Handler // // Listen for mouse events on the buttons.
-		Handler handler = new Handler(this);
+		// Listen for events
 		calcButton.addClickHandler(handler);
 		removeButton.addClickHandler(handler);
 		firstNumberBox.addKeyDownHandler(handler);
@@ -57,16 +60,16 @@ public class ExempelProjekt implements EntryPoint {
 		// create the setup for calcbuttons. Add buttons to four different horizontal
 		// panels
 		for (int i = 0; i < 4; i++) {
-			buttonPanel1Row.add(calculatorButton.createButton().get(i));
+			buttonPanel1Row.add(calculatorButton.createButton(handler).get(i));
 		}
 		for (int i = 4; i < 8; i++) {
-			buttonPanel2Row.add(calculatorButton.createButton().get(i));
+			buttonPanel2Row.add(calculatorButton.createButton(handler).get(i));
 		}
 		for (int i = 8; i < 12; i++) {
-			buttonPanel3Row.add(calculatorButton.createButton().get(i));
+			buttonPanel3Row.add(calculatorButton.createButton(handler).get(i));
 		}
 		for (int i = 12; i < 16; i++) {
-			buttonPanel4Row.add(calculatorButton.createButton().get(i));
+			buttonPanel4Row.add(calculatorButton.createButton(handler).get(i));
 		}
 		// add elements to the horizontal panel
 		addPanel.add(firstNumberBox);
@@ -76,6 +79,7 @@ public class ExempelProjekt implements EntryPoint {
 		addPanel.add(removeButton);
 
 		// add elements to the vertical panel
+		buttonPanel.add(calcLabel);
 		buttonPanel.add(buttonPanel1Row);
 		buttonPanel.add(buttonPanel2Row);
 		buttonPanel.add(buttonPanel3Row);
@@ -83,6 +87,7 @@ public class ExempelProjekt implements EntryPoint {
 
 		// mainPanel.add(buttonPanel);
 		mainPanel.add(addPanel);
+		mainPanel.add(labelPanel);
 		mainPanel.add(buttonPanel);
 		mainPanel.add(resultFlexTable);
 
@@ -105,6 +110,13 @@ public class ExempelProjekt implements EntryPoint {
 		firstNumberBox.setName("firstNumberBox");
 	}
 
+	public void calcTypeFromBoard(String number) {
+
+		calcLabel.setText(calcLabel.getText() + number);
+		int row = resultFlexTable.getRowCount();
+		resultFlexTable.setText(row, 0, number);
+	}
+
 	public void calculationType() {
 		secondNumberBox.setFocus(true);
 		final String operator = operatorBox.getText().trim();
@@ -115,6 +127,7 @@ public class ExempelProjekt implements EntryPoint {
 		double sum;
 		double firstNumber = Double.parseDouble(firstNumberBox.getText());
 		double secondNumber = Double.parseDouble(secondNumberBox.getText());
+
 		switch (operator) {
 		case "+":
 			sum = Calculation.calculateAddition(firstNumber, secondNumber);
@@ -134,6 +147,7 @@ public class ExempelProjekt implements EntryPoint {
 			break;
 		default:
 			break;
+
 		}
 
 	}
@@ -147,21 +161,25 @@ public class ExempelProjekt implements EntryPoint {
 		resultFlexTable.setText(row, 0, number1);
 		resultFlexTable.setText(row, 1, operator);
 		resultFlexTable.setText(row, 2, number2);
+
+		double divideSum = Double.parseDouble(number1) / Double.parseDouble(number2);
+		String sumDoubleDivide = NumberFormat.getFormat("#,##0.00").format(divideSum);
+		String sumDouble = NumberFormat.getFormat("#,##0.00").format(sum);
+
 		if (operator == "/") {
-			double divideSum = Double.parseDouble(number1) / Double.parseDouble(number2);
-			String sumDouble = NumberFormat.getFormat("#,##0.00").format(divideSum);
-			if (sum == 0) {
+			if (number2.equals("0")) {
 				String sumError = "Error";
 				resultFlexTable.setText(row, 3, sumError);
 			} else {
-				resultFlexTable.setText(row, 3, String.valueOf(sumDouble));
+				resultFlexTable.setText(row, 3, String.valueOf(sumDoubleDivide));
 			}
 		} else {
-			resultFlexTable.setText(row, 3, String.valueOf(sum));
+			resultFlexTable.setText(row, 3, String.valueOf(sumDouble));
 		}
 	}
 
 	public void clearTextFields() {
+		calcLabel.setText("");
 		firstNumberBox.setText("");
 		operatorBox.setText("");
 		secondNumberBox.setText("");
@@ -171,21 +189,4 @@ public class ExempelProjekt implements EntryPoint {
 	public TextBox getOperatorBox() {
 		return operatorBox;
 	}
-
-	public TextBox getFirstNumberBox() {
-		return firstNumberBox;
-	}
-
-	public TextBox getSecondNumberBox() {
-		return secondNumberBox;
-	}
-
-	public void setFirstNumberBox(TextBox firstNumberBox) {
-		this.firstNumberBox = firstNumberBox;
-	}
-
-	public void setSecondNumberBox(TextBox secondNumberBox) {
-		this.secondNumberBox = secondNumberBox;
-	}
-
 }
