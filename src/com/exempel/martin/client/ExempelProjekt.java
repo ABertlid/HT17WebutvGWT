@@ -164,7 +164,6 @@ public class ExempelProjekt implements EntryPoint {
 
 		double divideSum = Double.parseDouble(number1) / Double.parseDouble(number2);
 		String sumDoubleDivide = NumberFormat.getFormat("#,##0.00").format(divideSum);
-		String sumDouble = NumberFormat.getFormat("#,##0.00").format(sum);
 
 		if (operator == "/") {
 			if (number2.equals("0")) {
@@ -174,7 +173,7 @@ public class ExempelProjekt implements EntryPoint {
 				resultFlexTable.setText(row, 3, String.valueOf(sumDoubleDivide));
 			}
 		} else {
-			resultFlexTable.setText(row, 3, String.valueOf(sumDouble));
+			resultFlexTable.setText(row, 3, String.valueOf(sum));
 		}
 	}
 
