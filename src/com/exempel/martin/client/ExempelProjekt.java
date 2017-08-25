@@ -1,7 +1,9 @@
 package com.exempel.martin.client;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.i18n.client.NumberFormat;
+import com.google.gwt.storage.client.Storage;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -24,6 +26,7 @@ public class ExempelProjekt implements EntryPoint {
 	private HorizontalPanel buttonPanel3Row = new HorizontalPanel();
 	private HorizontalPanel buttonPanel4Row = new HorizontalPanel();
 	private HorizontalPanel labelPanel = new HorizontalPanel();
+	private HorizontalPanel storagePanel = new HorizontalPanel();
 	private FlexTable resultFlexTable = new FlexTable();
 	private TextBox firstNumberBox = new TextBox();
 	private TextBox secondNumberBox = new TextBox();
@@ -32,8 +35,10 @@ public class ExempelProjekt implements EntryPoint {
 	private Button removeButton = new Button("Clear");
 	private CalcButton calculatorButton = new CalcButton();
 	private Label calcLabel = new Label();
+	private Label storageLabel = new Label();
 	private Handler handler = new Handler(this);
 	private Calculation calculation = new Calculation();
+	private Storage storage = null;
 
 	/**
 	 * Entry point method.
@@ -85,11 +90,13 @@ public class ExempelProjekt implements EntryPoint {
 		buttonPanel.add(buttonPanel2Row);
 		buttonPanel.add(buttonPanel3Row);
 		buttonPanel.add(buttonPanel4Row);
+		buttonPanel.add(storageLabel);
 
 		// mainPanel.add(buttonPanel);
 		mainPanel.add(addPanel);
 		mainPanel.add(labelPanel);
 		mainPanel.add(buttonPanel);
+		mainPanel.add(storagePanel);
 		mainPanel.add(resultFlexTable);
 
 		// Create table for visibility and result
@@ -175,6 +182,15 @@ public class ExempelProjekt implements EntryPoint {
 			}
 		} else {
 			resultFlexTable.setText(row, 3, String.valueOf(sum));
+		}
+
+		storage = Storage.getLocalStorageIfSupported();
+		if (storage != null) {
+			int numberOpStorage = storage.getLength();
+			storage.setItem("data" + numberOpStorage,
+					number1 + " " + " " + operator + " " + number2 + " = " + String.valueOf(sum));
+			storageLabel.setText(String.valueOf(storage.getItem("data" + numberOpStorage)));
+			GWT.log("storage " + storage.getLength());
 		}
 	}
 

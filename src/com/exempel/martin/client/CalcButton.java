@@ -3,7 +3,7 @@ package com.exempel.martin.client;
 import java.util.ArrayList;
 import com.google.gwt.user.client.ui.Button;
 
-public class CalcButton {
+public class CalcButton extends Button {
 	
 	public ArrayList<Button> createButton(Handler handler) {
 		
