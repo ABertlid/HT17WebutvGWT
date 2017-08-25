@@ -33,6 +33,7 @@ public class ExempelProjekt implements EntryPoint {
 	private CalcButton calculatorButton = new CalcButton();
 	private Label calcLabel = new Label();
 	private Handler handler = new Handler(this);
+	private Calculation calculation = new Calculation();
 
 	/**
 	 * Entry point method.
@@ -130,19 +131,19 @@ public class ExempelProjekt implements EntryPoint {
 
 		switch (operator) {
 		case "+":
-			sum = Calculation.calculateAddition(firstNumber, secondNumber);
+			sum = calculation.calculateAddition(firstNumber, secondNumber);
 			updateTable(sum);
 			break;
 		case "-":
-			sum = Calculation.calculateSubtraction(firstNumber, secondNumber);
+			sum = calculation.calculateSubtraction(firstNumber, secondNumber);
 			updateTable(sum);
 			break;
 		case "/":
-			sum = Calculation.calculateDivision(firstNumber, secondNumber);
+			sum = calculation.calculateDivision(firstNumber, secondNumber);
 			updateTable(sum);
 			break;
 		case "*":
-			sum = Calculation.calculateMultiplication(firstNumber, secondNumber);
+			sum = calculation.calculateMultiplication(firstNumber, secondNumber);
 			updateTable(sum);
 			break;
 		default:
